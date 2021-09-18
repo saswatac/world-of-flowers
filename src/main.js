@@ -4,6 +4,7 @@ import VueEasyLightbox from 'vue-easy-lightbox'
 import * as VueGoogleMaps from 'vue2-google-maps'
 import 'leaflet/dist/leaflet.css';
 import { Icon } from 'leaflet';
+import vuetify from './plugins/vuetify'
 
 delete Icon.Default.prototype._getIconUrl;
 Icon.Default.mergeOptions({
@@ -23,5 +24,6 @@ Vue.use(VueGoogleMaps, {
 });
 
 new Vue({
-  render: h => h(App),
+  vuetify,
+  render: h => h(App)
 }).$mount('#app')

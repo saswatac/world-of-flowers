@@ -1,60 +1,60 @@
 <template>
-  <div>
-    <carousel-3d ref=mycarousel :controls-visible="true" @after-slide-change="onAfterSlideChange" :display="1" width=600>
-      <slide v-for="(image, i) in imgs" v-bind:key="i" :index=i>
-        <figure @click="() => showSingle(i)">
-          <img :src=imgs[i].url alt="Italian Trulli" loading=lazy width=80% height=80%>
-          <p>
-            {{ imgs[i].description }}
-          </p>
-        </figure>
-      </slide>
-    </carousel-3d>
-    <v-carousel>
-      <v-carousel-item
-        v-for="(image, i) in imgs"
-        v-bind:key="i"
-        :src="imgs[i].url"
-      ></v-carousel-item>
-    </v-carousel>
-    <l-map ref="myMap"> </l-map>
-    <l-map
-      :zoom=13
-      :center="center"
-      :options="mapOptions"
-      style="height: 850px; width: 850px"
+  <v-app>
+    <v-app-bar
+      app
+      color="primary"
+      dark
     >
-      <l-tile-layer
-        :url="url"
-        :attribution="attribution"
-      />
-      <l-marker v-for="(image, i) in imgs" v-bind:key="i" :lat-lng="imgs[i].location" :opacity=0.5 v-on:click="() => goToSlide(i)">
-      </l-marker>
-    </l-map>
-    <!-- all props & events -->
-    <vue-easy-lightbox
-      escDisabled
-      moveDisabled
-      :visible="visible"
-      :imgs="selected_img"
-      :index="index"
-      @hide="handleHide"
-    ></vue-easy-lightbox>
-  </div>
+      <v-spacer></v-spacer>
+    </v-app-bar>
+    <v-main>
+      <v-container fluid>
+        <v-row>
+          <v-col cols="12" lg="9">
+            <v-carousel v-model="index" height="auto" hide-delimiters>
+              <v-carousel-item
+                v-for="(image, i) in imgs"
+                v-bind:key="i"
+              >
+                <v-row>
+                  <v-col>
+                    <v-img :src=imgs[i].url max-height="750"></v-img>
+                  </v-col>
+                </v-row>
+                <v-row><v-col><v-subheader>{{ imgs[i].description }}</v-subheader></v-col></v-row>
+              </v-carousel-item>
+            </v-carousel>
+          </v-col>
+          <v-col cols="12" lg="3">
+            <l-map
+              :zoom=13
+              :center="center"
+              :options="mapOptions"
+              style="height: 300px"
+            >
+              <l-tile-layer
+                :url="url"
+                :attribution="attribution"
+              />
+              <l-marker v-for="(image, i) in imgs" v-bind:key="i" :lat-lng="imgs[i].location" v-on:click="() => goToSlide(i)">
+              </l-marker>
+            </l-map>
+          </v-col>
+         </v-row>
+      </v-container>
+    </v-main>
+  </v-app>
 </template>
 
 <script>
   // If VueApp is already registered with VueEasyLightbox, there is no need to register it here.
-  import VueEasyLightbox from 'vue-easy-lightbox';
-  import { Carousel3d, Slide } from 'vue-carousel-3d';
+  //import VueEasyLightbox from 'vue-easy-lightbox';
+  //import { Carousel3d, Slide } from 'vue-carousel-3d';
   //import L from 'leaflet';
   import { LMap, LTileLayer, LMarker } from "vue2-leaflet";
 
   export default {
     components: {
-      VueEasyLightbox,
-      Carousel3d,
-      Slide,
       LMap,
       LMarker,
       LTileLayer,
@@ -98,9 +98,7 @@
             }
 
         ], // Img Url , string or Array of string
-        visible: false,
         index: 0, // default: 0
-        selected_img: '',
         center: [46.508, 6.587],
         mapOptions: {
           zoomSnap: 0.5
@@ -111,46 +109,11 @@
       }
     },
     methods: {
-      showSingle(i) {
-        this.selected_img = [{
-          title: 'this is a placeholder',
-          src: this.imgs[i].url
-        }]
-        this.show()
-      },
-      show() {
-        this.visible = true
-      },
-      handleHide() {
-        this.visible = false
-      },
-      onAfterSlideChange(index) {
-        console.log('@onAfterSlideChange Callback Triggered', 'Slide Index ' + index)
-        this.index = index
-      },
       goToSlide(index) {
-        this.$refs.mycarousel.goSlide(index)
+        this.index = index
       }
     }
   }
 </script>
 <style scoped>
-figure {
-    border: thin #c0c0c0 solid;
-    display: flex;
-    flex-flow: column;
-    padding: 5px;
-    max-width: 220px;
-    margin: auto;
-}
-
-
-
-figcaption {
-    background-color: #222;
-    color: #fff;
-    font: italic smaller sans-serif;
-    padding: 3px;
-    text-align: center;
-}
 </style>
