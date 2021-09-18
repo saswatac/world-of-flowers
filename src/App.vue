@@ -10,6 +10,13 @@
         </figure>
       </slide>
     </carousel-3d>
+    <v-carousel>
+      <v-carousel-item
+        v-for="(image, i) in imgs"
+        v-bind:key="i"
+        :src="imgs[i].url"
+      ></v-carousel-item>
+    </v-carousel>
     <l-map ref="myMap"> </l-map>
     <l-map
       :zoom=13
