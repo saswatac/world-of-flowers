@@ -6,6 +6,11 @@
       dark
     >
       <v-spacer></v-spacer>
+      <router-link to="/upload">
+        <v-icon large>
+          mdi-arrow-up-bold-box-outline
+        </v-icon>
+      </router-link>
     </v-app-bar>
     <v-main>
       <v-container fluid>
