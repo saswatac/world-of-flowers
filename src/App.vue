@@ -1,10 +1,13 @@
 <template>
   <div>
-    <carousel-3d ref=mycarousel :controls-visible="true" @after-slide-change="onAfterSlideChange" :display="1">
+    <carousel-3d ref=mycarousel :controls-visible="true" @after-slide-change="onAfterSlideChange" :display="1" width=600>
       <slide v-for="(image, i) in imgs" v-bind:key="i" :index=i>
-        <div @click="() => showSingle(i)">
-          <img :src=imgs[i].url alt="Italian Trulli" loading=lazy>
-        </div>
+        <figure @click="() => showSingle(i)">
+          <img :src=imgs[i].url alt="Italian Trulli" loading=lazy width=80% height=80%>
+          <p>
+            {{ imgs[i].description }}
+          </p>
+        </figure>
       </slide>
     </carousel-3d>
     <l-map ref="myMap"> </l-map>
@@ -55,28 +58,36 @@
       return {
         imgs: [
             { url: "http://localhost:8000/PXL_20210905_112008235.MP.jpg",
-              location: [47.508, 6.587]
+              location: [47.508, 6.587],
+              description: "test"
             },
             { url: "http://localhost:8000/PXL_20210905_121021611.jpg",
-              location: [46.508, 6.587]
+              location: [46.508, 6.587],
+              description: "test",
             },
             { url: "http://localhost:8000/PXL_20210905_121021611.jpg",
-              location: [46.508, 6.587]
+              location: [46.508, 6.587],
+              description: "test"
             },
             { url: "http://localhost:8000/PXL_20210905_121021611.jpg",
-              location: [46.508, 6.587]
+              location: [46.508, 6.587],
+              description: "test"
             },
             { url: "http://localhost:8000/PXL_20210905_121021611.jpg",
-              location: [46.508, 6.587]
+              location: [46.508, 6.587],
+              description: "test"
             },
             { url: "http://localhost:8000/PXL_20210905_121021611.jpg",
-              location: [46.508, 6.587]
+              location: [46.508, 6.587],
+              description: "test"
             },
             { url: "http://localhost:8000/PXL_20210905_121021611.jpg",
-              location: [46.508, 6.587]
+              location: [46.508, 6.587],
+              description: "test"
             },
             { url: "http://localhost:8000/PXL_20210905_121021611.jpg",
-              location: [46.508, 6.587]
+              location: [46.508, 6.587],
+              description: "test"
             }
 
         ], // Img Url , string or Array of string
@@ -116,3 +127,23 @@
     }
   }
 </script>
+<style scoped>
+figure {
+    border: thin #c0c0c0 solid;
+    display: flex;
+    flex-flow: column;
+    padding: 5px;
+    max-width: 220px;
+    margin: auto;
+}
+
+
+
+figcaption {
+    background-color: #222;
+    color: #fff;
+    font: italic smaller sans-serif;
+    padding: 3px;
+    text-align: center;
+}
+</style>
