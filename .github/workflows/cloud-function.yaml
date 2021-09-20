@@ -9,7 +9,7 @@ env:
   PROJECT_ID: ${{ secrets.GCP_PROJECT }}
   GEO_DB_PATH: ${{ secrets.GEO_DB_PATH }}
   IMAGE_STORAGE_PATH: ${{ secrets.IMAGE_STORAGE_PATH }}
-  ADMIN_USERS: $${  secrets.ADMIN_USERS }}
+  ADMIN_USERS: $${ secrets.ADMIN_USERS }}
 
 jobs:
   deploy:
