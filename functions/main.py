@@ -14,9 +14,11 @@ logging.basicConfig(
 
 logger = logging.getLogger("app")
 
-db = GeoDb("db.geojson", "../data")
+db = GeoDb("gs://sc-world-of-flowers-db-test/db.geojson", "gs://sc-world-of-flowers-test/images")
+#db = GeoDb("db.geojson", "../data")
 
-ADMINS = ["saswata.12@gmail.com", "m.imagination.m@gmail.com"]
+
+ADMINS = ["saswata.123@gmail.com", "m.imagination.m@gmail.com"]
 
 
 @allow_cors
