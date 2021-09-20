@@ -30,6 +30,7 @@
             <v-img :src=url></v-img>
           </v-col>
          </v-row>
+         <v-row><v-col><div id="google-signin-button"></div></v-col></v-row>
       </v-container>
     </v-main>
 </template>
@@ -43,8 +44,14 @@
         url: '',
         selectedFile: null,
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
-        description: ''
+        description: '',
+        id_token: ''
       }
+    },
+    mounted() {
+      window.gapi.signin2.render('google-signin-button', {
+        onsuccess: this.onSignIn
+      })
     },
     methods: {
       previewImage(file) {
@@ -54,7 +61,7 @@
           this.url = ''
         }
       },
-      upload() {
+      async upload() {
         if (this.selectedFile === null) {
           alert("Select file")
           return
@@ -63,10 +70,31 @@
           alert("Add description")
           return
         }
-        console.log("uploading")
-        this.selectedFile = null
-        this.description = ''
-        this.url = ''
+        if (this.id_token === '') {
+          alert("You must sign in to upload")
+        }
+        var formData = new FormData();
+        formData.append("image", this.selectedFile, this.selectedFile.name);
+        formData.append("description", this.description);
+        const response = await fetch(`http://192.168.1.112:8081?token=${this.id_token}`, {
+          method: 'POST',
+          mode: 'cors',
+          cache: 'no-cache',
+          credentials: 'same-origin',
+          redirect: 'follow', // manual, *follow, error
+          referrerPolicy: 'no-referrer',
+          body: formData
+        });
+        if (response.ok !== true) {
+          alert(await response.text())
+        } else {
+          this.selectedFile = null
+          this.description = ''
+          this.url = ''
+        }
+      },
+      onSignIn (user) {
+        this.id_token = user.getAuthResponse().id_token
       }
     }
   }

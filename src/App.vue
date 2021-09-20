@@ -5,6 +5,11 @@
       color="primary"
       dark
     >
+      <router-link to="/">
+        <v-icon large>
+          mdi-home
+        </v-icon>
+      </router-link>
       <v-spacer></v-spacer>
       <router-link to="/upload">
         <v-icon large>
@@ -23,18 +28,5 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
 }
 </style>
