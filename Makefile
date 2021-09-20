@@ -13,7 +13,4 @@ deploy:
 	  --project saswatalabs \
 	  --region asia-south1 \
 	  --source functions \
-	  --set-env-vars=GEO_DB_PATH=gs://sc-world-of-flowers-db-test/db.geojson,IMAGE_STORAGE_PATH=gs://sc-world-of-flowers-test/images,ADMIN_USERS=saswata.123@gmail.com
-
-
-
+	  --set-env-vars=GEO_DB_PATH=$${GEO_DB_PATH},IMAGE_STORAGE_PATH=$${IMAGE_STORAGE_PATH},ADMIN_USERS=$${ADMIN_USERS}
