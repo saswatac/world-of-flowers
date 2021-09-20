@@ -1,5 +1,8 @@
 from functools import wraps
 import jwt
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 def allow_cors(fn):
@@ -32,6 +35,7 @@ def allow_cors(fn):
                 else:
                     return res, headers
             except Exception:
+                logging.exception("Internal error.")
                 return ("Internal error", 500, headers)
 
     return f

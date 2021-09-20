@@ -146,7 +146,7 @@ class GoogleCloudStorage:
         scheme, p = split_scheme(path)
         assert scheme == "gs"
         bucket_name = p.split("/", 1)[0]
-        bucket = self.client.get_bucket(bucket_name)
+        bucket = self.client.bucket(bucket_name)
         try:
             p = p.split("/", 1)[1]
         except IndexError:
@@ -175,9 +175,9 @@ class GoogleCloudImageStore:
         assert scheme == "gs"
         self.bucket_name = p.split("/", 1)[0]
         client = storage.Client()
-        self.bucket = client.get_bucket(self.bucket_name)
+        self.bucket = client.bucket(self.bucket_name)
         try:
-            self.prefix = p.split("/")[1]
+            self.prefix = p.split("/", 1)[1]
         except IndexError:
             self.prefix = ''
 
@@ -186,6 +186,6 @@ class GoogleCloudImageStore:
         bio = BytesIO()
         image.save(bio, format="jpeg")
         bio.seek(0)
-        blob = self.bucket.blob(path.name)
+        blob = self.bucket.blob(str(path))
         blob.upload_from_file(bio)
-        return f"https://storage.googleapis.com/{self.bucket_name}/{path.name}"
+        return f"https://storage.googleapis.com/{self.bucket_name}/{str(path)}"

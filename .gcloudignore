@@ -1,0 +1,5 @@
+functions/.ipynb_checkpoints/
+functions/*.ipynb
+functions/*.geojson
+
+

@@ -8,4 +8,4 @@ functions/*.ipynb
 **/__pycache__/
 package-lock.json
 yarn.lock
-
+dist/

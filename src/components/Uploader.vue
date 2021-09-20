@@ -45,7 +45,8 @@
         selectedFile: null,
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
         description: '',
-        id_token: ''
+        id_token: '',
+        api: process.env.VUE_APP_API
       }
     },
     mounted() {
@@ -76,7 +77,7 @@
         var formData = new FormData();
         formData.append("image", this.selectedFile, this.selectedFile.name);
         formData.append("description", this.description);
-        const response = await fetch(`http://192.168.1.112:8081?token=${this.id_token}`, {
+        const response = await fetch(`${this.api}?token=${this.id_token}`, {
           method: 'POST',
           mode: 'cors',
           cache: 'no-cache',

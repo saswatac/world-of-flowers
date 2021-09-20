@@ -3,6 +3,7 @@ from db import GeoDb
 from PIL.ExifTags import TAGS, GPSTAGS
 from PIL import Image
 import logging
+import os
 
 logging.basicConfig(
     level=logging.INFO,
@@ -14,11 +15,9 @@ logging.basicConfig(
 
 logger = logging.getLogger("app")
 
-db = GeoDb("gs://sc-world-of-flowers-db-test/db.geojson", "gs://sc-world-of-flowers-test/images")
-#db = GeoDb("db.geojson", "../data")
+db = GeoDb(os.environ["GEO_DB_PATH"], os.environ["IMAGE_STORAGE_PATH"])
 
-
-ADMINS = ["saswata.123@gmail.com", "m.imagination.m@gmail.com"]
+ADMINS = os.environ["ADMIN_USERS"].split(",")
 
 
 @allow_cors

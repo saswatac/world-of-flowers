@@ -76,11 +76,11 @@
         },
         url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
-
+        api: process.env.VUE_APP_API,
       }
     },
     created() {
-      fetch(`http://192.168.1.112:8081?ne=${this.bounds[0]}&sw=${this.bounds[1]}`)
+      fetch(`${this.api}?ne=${this.bounds[0]}&sw=${this.bounds[1]}`)
         .then(response => response.json())
         .then(data => this.imgs = data["images"]);
     },
@@ -89,7 +89,7 @@
         this.index = index
       },
       updateBounds(x) {
-        fetch(`http://192.168.1.112:8081?ne=${x._northEast.lat},${x._northEast.lng}&sw=${x._southWest.lat},${x._southWest.lng}`)
+        fetch(`${this.api}?ne=${x._northEast.lat},${x._northEast.lng}&sw=${x._southWest.lat},${x._southWest.lng}`)
         .then(response => response.json())
         .then(data => this.imgs = data["images"]);
         this.index = 0
